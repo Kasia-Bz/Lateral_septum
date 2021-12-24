@@ -11,41 +11,22 @@ import h5py
 import numpy as np
 
 from fklab.geometry.shapes import graph, polyline, rectangle, polygon
-project_path = None
 
-
-def load_project(path):
-    global project_path
-    project_path = path
-
-def load_position(path):
-    global position_data_path, head_direction, position, position_time, position_velocity
-    position_data_path = path
-    position_data = h5py.File(path, 'r')
-
-    # diodes = position_data['diodes'].value
-    head_direction = np.array(position_data['head_direction'])
-    position = np.array(position_data['position'])
-    position_time = np.array(position_data['time'])
-    position_velocity = np.array(position_data['velocity'])
-    
 environment_yaml = None
 
-def load_environment_yaml(path=None):
+def load_environment_yaml(path):
     global environment_yaml
     if path is None:
-        path = str(Path(position_data_path).with_name('environment.yaml'))
+        path = str(Path(path).with_name('environment.yaml'))
 
     with open(path) as f:
         environment_yaml = ruamel_yaml.YAML().load(f)
         
         
-Y_maze_data = environment_yaml['ymaze']['shapes']['ymaze']['shape']
-Y_maze_data['polylines'] = [polyline(**p) if not isinstance(p, polyline) else p for p in Y_maze_data['polylines']]
-ymaze = graph(**Y_maze_data)
-
-
-def maze(Y_maze_data):
+def maze():
+    Y_maze_data = environment_yaml['ymaze']['shapes']['ymaze']['shape']
+    Y_maze_data['polylines'] = [polyline(**p) if not isinstance(p, polyline) else p for p in Y_maze_data['polylines']]
+    ymaze = graph(**Y_maze_data)
     
     RR = environment_yaml['ymaze']['shapes']['RR']['shape']
     RR = rectangle(**RR)

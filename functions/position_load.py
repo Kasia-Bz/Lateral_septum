@@ -46,7 +46,7 @@ def load_pos(path, epoch):
     xy = np.column_stack([position_at])
     
     
-    return(position_at, xy, x, y)
+    return(position_at, xy, x, y, position_time)
 
 def plot_position(x,y):
     plt.plot(x,y)

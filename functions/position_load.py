@@ -9,6 +9,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+import h5py
+import numpy as np
+import ruamel_yaml
 import matplotlib.pyplot as plt
 #%matplotlib inline
 #%matplotlib notebook
@@ -49,18 +52,28 @@ def align_time(align_file, pathnlx, pathglx):
         print(ta.avg_time_offset('npx'))
     
     return(ta)
-[613,2300]
-def load_pos(epoch, ):
+
+        
+def load_pos(path, epoch):
+    global position_data_path, head_direction, position, position_time, position_velocity
+    position_data_path = path
+    position_data = h5py.File(path, 'r')
+
+        # diodes = position_data['diodes'].value
+    head_direction = np.array(position_data['head_direction'])
+    position = np.array(position_data['position'])
+    position_time = np.array(position_data['time'])
+    position_velocity = np.array(position_data['velocity'])
 
     Y_maze_epoch = epoch
     
-    position_time = np.array(loading.position_time)
+    position_time = np.array(position_time)
 
     nan_array = np.isnan(position_time)
     not_nan_array = ~ nan_array
     position_time = position_time[not_nan_array]
 
-    position_at = loading.position[np.logical_and(position_time> Y_maze_epoch[0],
+    position_at = position[np.logical_and(position_time> Y_maze_epoch[0],
                                      position_time < Y_maze_epoch[1]), :]
     
     position_at_cm = position_at * 0.5

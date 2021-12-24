@@ -49,3 +49,29 @@ def align_time(align_file, pathnlx, pathglx):
         print(ta.avg_time_offset('npx'))
     
     return(ta)
+[613,2300]
+def load_pos(epoch, ):
+
+    Y_maze_epoch = epoch
+    
+    position_time = np.array(loading.position_time)
+
+    nan_array = np.isnan(position_time)
+    not_nan_array = ~ nan_array
+    position_time = position_time[not_nan_array]
+
+    position_at = loading.position[np.logical_and(position_time> Y_maze_epoch[0],
+                                     position_time < Y_maze_epoch[1]), :]
+    
+    position_at_cm = position_at * 0.5
+    
+    x=position_at[:,0]
+    y=position_at[:,1]
+
+    xy = np.column_stack([position_at])
+    
+    plt.plot(x,y)
+    plt.gca().invert_yaxis()
+    return(position_at, xy)
+
+

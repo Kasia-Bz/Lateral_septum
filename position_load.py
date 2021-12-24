@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 #%matplotlib notebook
 plt.style.use('seaborn-ticks')
 
-from data_analysis import loading
+#from data_analysis import loading
 from fklab.spikes.Kilosort import KiloSortResult
 
 # import
@@ -25,16 +25,18 @@ from fklab.io.spikeGLX.glx_sync import glx_extra_sync_signal
 project_path = None
 
 """ Time alignment function """
-def align_time(align_file):
+pathnlx = Path('/mnt/fk-fileserver/Project_LS/LS_k_8/110220/Neuralynx_data/2021-02-11_12-35-54/DLC/Events.nev')
+pathglx = Path('/mnt/fk-fileserver/Project_LS/LS_k_8/110220/110221_g0/110221_g0_imec0/110221_g0_t0.imec0.lf.bin')
+def align_time(align_file, pathnlx, pathglx):
     if align_file.exists():
         ta = TimeAlignment.load(align_file)
     else:
     # load Neuralynx data
-        nlx_file = Path('/mnt/fk-fileserver/Project_LS/LS_k_8/110220/Neuralynx_data/2021-02-11_12-35-54/DLC/Events.nev')
+        nlx_file = pathnlx
         nlx_data = nlx_retrieve_event(nlx_file)
 
     # load Neuropixels data
-        glx_file = Path('/mnt/fk-fileserver/Project_LS/LS_k_8/110220/110221_g0/110221_g0_imec0/110221_g0_t0.imec0.lf.bin')
+        glx_file = pathglx
         glx_data = glx_extra_sync_signal(glx_file)
 
     # here use another style to create a TimeAlignment instance.

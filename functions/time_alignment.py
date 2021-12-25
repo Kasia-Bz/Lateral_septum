@@ -2,7 +2,7 @@
 """
 Created on Fri Dec 24 17:04:25 2021
 
-@author: katar
+@author: katarzyna
 """
 from pathlib import Path
 import numpy as np

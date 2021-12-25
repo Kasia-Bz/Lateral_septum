@@ -2,7 +2,7 @@
 """
 Created on Fri Dec 24 15:53:39 2021
 
-@author: katar
+@author: katarzyna
 """
 import numpy as np
 from scipy.integrate import simps

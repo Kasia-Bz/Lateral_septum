@@ -2,7 +2,7 @@
 """
 Created on Fri Dec 24 16:54:26 2021
 
-@author: katar
+@author: katarzyna
 """
 
 from pathlib import Path
